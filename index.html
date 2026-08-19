@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <title>Equipment Listing</title>
     <link rel="stylesheet" href="styles.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-    </style>
 </head>
 
 <body>
@@ -73,7 +67,6 @@
     <script src="script.js"></script>
 
     <script>
-        // Password protection
         var password = "dmg1129";
         var enteredPassword = prompt("Please enter the password:");
         if (enteredPassword === password) {
@@ -81,19 +74,10 @@
         } else {
             document.body.innerHTML = "Invalid Password.";
         }
-
-        // Close modal
-        document.getElementById("closeModal").addEventListener("click", function () {
-            document.getElementById("verticalView").style.display = "none";
-            document.getElementById("modalOverlay").style.display = "none";
-        });
     </script>
 
 </body>
 </html>
-
-
-
 
 
 
