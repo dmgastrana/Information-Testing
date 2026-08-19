@@ -1,7 +1,9 @@
+
 body {
     font-family: Arial, sans-serif;
 }
 
+/* Search box layout */
 .search-container {
     display: flex;
     flex-direction: column;
@@ -17,6 +19,7 @@ body {
     border-radius: 4px;
 }
 
+/* Main table container */
 .result {
     margin: 10px;
     padding: 10px;
@@ -32,7 +35,8 @@ body {
     table-layout: auto;
 }
 
-.result th, .result td {
+.result th,
+.result td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
@@ -45,6 +49,7 @@ body {
     background-color: #f2f2f2;
 }
 
+/* Full table width */
 #resultTable {
     width: 100%;
 }
@@ -54,6 +59,7 @@ body {
     white-space: nowrap;
 }
 
+/* Column width controls */
 #resultTable th:nth-child(8),
 #resultTable td:nth-child(8) {
     min-width: 70px;
@@ -66,6 +72,19 @@ body {
     max-width: 600px;
 }
 
+/* Coverage days left (column 13) */
+#resultTable th:nth-child(13),
+#resultTable td:nth-child(13) {
+    min-width: 120px;
+}
+
+/* PM Completed (column 14) */
+#resultTable th:nth-child(14),
+#resultTable td:nth-child(14) {
+    min-width: 120px;
+}
+
+/* Vertical modal view */
 .vertical-view {
     display: none;
     position: fixed;
@@ -87,7 +106,8 @@ body {
     border-collapse: collapse;
 }
 
-.vertical-view th, .vertical-view td {
+.vertical-view th,
+.vertical-view td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
@@ -98,9 +118,10 @@ body {
 }
 
 .vertical-view td {
-    padding-left: 8px; /* Reduce padding to bring columns closer together */
+    padding-left: 8px;
 }
 
+/* Modal close button */
 .vertical-view .close {
     cursor: pointer;
     color: red;
@@ -109,10 +130,12 @@ body {
     margin-top: -15px;
 }
 
+/* Hidden class */
 .hidden {
     display: none;
 }
 
+/* Modal overlay */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -124,16 +147,10 @@ body {
     z-index: 999;
 }
 
-/* Style for "Office" row to be in blue text */
+/* Optional: Office row highlight in vertical view */
 .vertical-view .office-row td {
     color: blue;
 }
-
-    
-
-
-
-
 
 
 
