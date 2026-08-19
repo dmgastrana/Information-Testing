@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('equipmentData', JSON.stringify(equipmentData));
             displayResults(equipmentData);
 
-            // 🔔 Trigger pop-up alert after table loads
+            // ⭐ Trigger pop-up alert after table loads
             runAlerts(equipmentData);
         },
         error: function(error) {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("modalOverlay").style.display = "none";
     });
 
-    // ⭐ POP-UP ALERT WINDOW (with X close button)
+    // ⭐ POP-UP ALERT WINDOW (lists multiple systems downward)
     function runAlerts(data) {
         let alertItems = [];
 
@@ -170,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (diffDays <= 60 && diffDays > 0) {
 
                 alertItems.push(`
+<div class="alert-entry">
 <b>Serial Number:</b> ${item['Serial Number']}<br>
 <b>Make:</b> ${item['Make']}<br>
 <b>Office:</b> ${item['Office']}<br>
@@ -182,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <b>Service Support:</b> ${item['Service Support']}<br>
 <b>Support Phone#:</b> ${item['Support Phone#']}<br>
 <b>Support Email:</b> ${item['Support Email']}<br>
+</div>
 <hr>
                 `);
             }
@@ -196,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Close pop-up
+    // ⭐ Close pop-up
     document.getElementById("alertClose").addEventListener("click", function () {
         document.getElementById("alertPopup").classList.add("hidden");
     });
