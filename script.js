@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-new/main/datatable.csv';
+    const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-testing/main/datatable.csv';
     let equipmentData = [];
 
     function cleanDate(value) {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (key === 'Service Contract') {
 
                     const serialNumber = item['Serial Number']?.trim() || '';
-                    const pdfUrl = `https://raw.githubusercontent.com/dmgastrana/Information-new/main/${serialNumber}.pdf`;
+                    const pdfUrl = `https://raw.githubusercontent.com/dmgastrana/Information-testing/main/${serialNumber}.pdf`;
 
                     if (serialNumber) {
                         fetch(pdfUrl, { method: 'HEAD' })
