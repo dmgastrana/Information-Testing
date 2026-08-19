@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (key === 'Service Contract') {
 
                     const serialNumber = item['Serial Number']?.trim() || '';
-                    const pdfUrl = `https://raw.githubusercontent.com/dmgastrana/Information-Test/main/${serialNumber}.pdf`;
+                    const pdfUrl = `https://raw.githubusercontent.com/dmgastrana/Information-Testing/main/${serialNumber}.pdf`;
 
                     if (serialNumber) {
                         fetch(pdfUrl, { method: 'HEAD' })
