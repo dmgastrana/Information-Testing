@@ -3,6 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-Test/main/datatable.csv';
     let equipmentData = [];
 
+    // Helper: clean date values (handles "n/a", blanks, and "12/31/2026, after month to month")
+    function cleanDate(value) {
+        if (!value) return null;
+
+        const lower = value.toLowerCase().trim();
+        if (lower === "n/a" || lower === "na" || lower === "") return null;
+
+        // Extract only the date portion before any comma
+        const datePart = value.split(',')[0].trim();
+
+        const parsed = new Date(datePart);
+        return isNaN(parsed) ? null : parsed;
+    }
+
     // Load CSV
     Papa.parse(csvUrl, {
         download: true,
@@ -37,33 +51,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (key === 'Coverage days left') {
 
                     let rawEnd = item['Contract/Warranty End'];
+                    let endDate = cleanDate(rawEnd);
 
-                    if (!rawEnd || rawEnd.toLowerCase() === 'n/a') {
+                    if (!endDate) {
                         cell.textContent = 'n/a';
                         cell.style.color = 'gray';
 
                     } else {
-                        let datePart = rawEnd.split(',')[0].trim();
-                        let endDate = new Date(datePart);
+                        const today = new Date();
+                        const diffTime = endDate - today;
+                        const diffDays = Math.ceil(diffTime / 86400000);
 
-                        if (isNaN(endDate)) {
-                            cell.textContent = 'Invalid Date';
+                        cell.textContent = diffDays;
+
+                        if (diffDays <= 0) {
                             cell.style.color = 'red';
-
+                        } else if (diffDays <= 30) {
+                            cell.style.color = 'orange';
                         } else {
-                            const today = new Date();
-                            const diffTime = endDate - today;
-                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                            cell.textContent = diffDays;
-
-                            if (diffDays <= 0) {
-                                cell.style.color = 'red';
-                            } else if (diffDays <= 30) {
-                                cell.style.color = 'orange';
-                            } else {
-                                cell.style.color = 'green';
-                            }
+                            cell.style.color = 'green';
                         }
                     }
 
@@ -166,7 +172,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-
-
 
 
