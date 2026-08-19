@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-Test/main/datatable.csv';
+    const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-Testing/main/datatable.csv';
     let equipmentData = [];
 
     // Helper: clean date values (handles "n/a", blanks, and "12/31/2026, after month to month")
