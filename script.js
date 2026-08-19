@@ -3,21 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-Testing/main/datatable.csv';
     let equipmentData = [];
 
-    // Helper: clean date values (handles "n/a", blanks, and "12/31/2026, after month to month")
     function cleanDate(value) {
         if (!value) return null;
-
         const lower = value.toLowerCase().trim();
         if (lower === "n/a" || lower === "na" || lower === "") return null;
-
-        // Extract only the date portion before any comma
         const datePart = value.split(',')[0].trim();
-
         const parsed = new Date(datePart);
         return isNaN(parsed) ? null : parsed;
     }
 
-    // Load CSV
     Papa.parse(csvUrl, {
         download: true,
         header: true,
@@ -31,12 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Search filters
     document.querySelectorAll('.search-container input').forEach(input => {
         input.addEventListener('input', filterTable);
     });
 
-    // Display table rows
     function displayResults(data) {
         const resultTable = document.getElementById('resultTable').getElementsByTagName('tbody')[0];
         resultTable.innerHTML = '';
@@ -47,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             Object.entries(item).forEach(([key, val]) => {
                 const cell = row.insertCell();
 
-                // Auto-calc Coverage Days Left
                 if (key === 'Coverage days left') {
 
                     let rawEnd = item['Contract/Warranty End'];
@@ -56,24 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!endDate) {
                         cell.textContent = 'n/a';
                         cell.style.color = 'gray';
-
                     } else {
                         const today = new Date();
                         const diffTime = endDate - today;
                         const diffDays = Math.ceil(diffTime / 86400000);
-
                         cell.textContent = diffDays;
 
-                        if (diffDays <= 0) {
-                            cell.style.color = 'red';
-                        } else if (diffDays <= 30) {
-                            cell.style.color = 'orange';
-                        } else {
-                            cell.style.color = 'green';
-                        }
+                        if (diffDays <= 0) cell.style.color = 'red';
+                        else if (diffDays <= 30) cell.style.color = 'orange';
+                        else cell.style.color = 'green';
                     }
 
-                // PDF link for Service Contract
                 } else if (key === 'Service Contract') {
 
                     const serialNumber = item['Serial Number']?.trim() || '';
@@ -105,12 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTotalRowCount(data.length);
     }
 
-    // Row count
     function updateTotalRowCount(count) {
         document.getElementById('rowCount').textContent = `Total Rows: ${count}`;
     }
 
-    // Filtering
     function filterTable() {
         const serialNumberValue = document.getElementById('serialNumber').value.toLowerCase();
         const makeValue = document.getElementById('make').value.toLowerCase();
@@ -131,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         displayResults(filteredData);
     }
 
-    // Vertical modal view
     function handleRowClick(event) {
         const row = event.target.closest("tr");
         const headers = Array.from(document.querySelectorAll("#resultTable th"));
@@ -165,13 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("modalOverlay").style.display = "block";
     }
 
-    // Close modal
     document.getElementById("closeModal").addEventListener("click", function () {
         document.getElementById("verticalView").style.display = "none";
         document.getElementById("modalOverlay").style.display = "none";
     });
 
 });
-
-
-
