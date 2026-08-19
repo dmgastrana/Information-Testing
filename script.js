@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
             equipmentData = results.data;
             localStorage.setItem('equipmentData', JSON.stringify(equipmentData));
             displayResults(equipmentData);
+
+            // 🔔 Trigger pop-up alert after table loads
+            runAlerts(equipmentData);
         },
         error: function(error) {
             console.error('Error parsing CSV:', error);
@@ -149,6 +152,53 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("closeModal").addEventListener("click", function () {
         document.getElementById("verticalView").style.display = "none";
         document.getElementById("modalOverlay").style.display = "none";
+    });
+
+    // ⭐ POP-UP ALERT WINDOW (with X close button)
+    function runAlerts(data) {
+        let alertItems = [];
+
+        data.forEach(item => {
+            let rawEnd = item['Contract/Warranty End'];
+            let endDate = cleanDate(rawEnd);
+
+            if (!endDate) return;
+
+            const today = new Date();
+            const diffDays = Math.ceil((endDate - today) / 86400000);
+
+            if (diffDays <= 60 && diffDays > 0) {
+
+                alertItems.push(`
+<b>Serial Number:</b> ${item['Serial Number']}<br>
+<b>Make:</b> ${item['Make']}<br>
+<b>Office:</b> ${item['Office']}<br>
+<b>Modality:</b> ${item['Modality']}<br>
+<b>Room:</b> ${item['Room']}<br>
+<b>Equipment:</b> ${item['Equipment']}<br>
+<b>Contract Begin:</b> ${item['Contract/Warranty Begin']}<br>
+<b>Contract End:</b> ${item['Contract/Warranty End']}<br>
+<b>Coverage days left:</b> ${diffDays}<br>
+<b>Service Support:</b> ${item['Service Support']}<br>
+<b>Support Phone#:</b> ${item['Support Phone#']}<br>
+<b>Support Email:</b> ${item['Support Email']}<br>
+<hr>
+                `);
+            }
+        });
+
+        if (alertItems.length > 0) {
+            const popup = document.getElementById("alertPopup");
+            const content = document.getElementById("alertContent");
+
+            content.innerHTML = `<h3>⚠ Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
+            popup.classList.remove("hidden");
+        }
+    }
+
+    // Close pop-up
+    document.getElementById("alertClose").addEventListener("click", function () {
+        document.getElementById("alertPopup").classList.add("hidden");
     });
 
 });
