@@ -4,123 +4,17 @@
     <meta charset="UTF-8">
     <title>Equipment Listing</title>
     <link rel="stylesheet" href="styles.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
         }
-
-        .search-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        .search-container input {
-            margin: 10px;
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .result {
-            margin: 10px;
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-
-        .result table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: auto;
-        }
-
-        .result th, .result td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .result th {
-            background-color: #f2f2f2;
-        }
-
-        #resultTable th:nth-child(8),
-        #resultTable td:nth-child(8) {
-            min-width: 70px;
-            max-width: 150px;
-        }
-
-        #resultTable th:nth-child(9),
-        #resultTable td:nth-child(9) {
-            min-width: 300px;
-            max-width: 600px;
-        }
-
-        .vertical-view {
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #fff;
-            z-index: 1000;
-            width: 80%;
-            max-height: 80%;
-            overflow: auto;
-        }
-
-        .vertical-view table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .vertical-view th, .vertical-view td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .vertical-view th {
-            background-color: #f2f2f2;
-        }
-
-        .vertical-view .close {
-            cursor: pointer;
-            color: red;
-            float: right;
-            font-size: 18px;
-            margin-top: -15px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
     </style>
 </head>
+
 <body>
     <div id="content" class="hidden">
+
         <div class="search-container">
             <input type="text" id="serialNumber" placeholder="Search by Serial Number">
             <input type="text" id="office" placeholder="Search by Office">
@@ -144,10 +38,11 @@
                     <th>Contract/Warranty Begin</th>
                     <th>Contract/Warranty End</th>
                     <th>Service Contract</th>
+                    <th>Coverage days left</th>
+                    <th>PM Completed</th>
                     <th>Service Support</th>
                     <th>Support Phone#</th>
                     <th>Support Email</th>
-                    <th>Coverage Days left</th>
                     <th>Service Annual Fee</th>
                     <th>Note</th>
                     <th>Purchase From</th>
@@ -161,10 +56,12 @@
             </thead>
             <tbody></tbody>
         </table>
+
         <div id="rowCount"></div>
     </div>
 
     <div class="modal-overlay" id="modalOverlay"></div>
+
     <div class="vertical-view" id="verticalView">
         <span class="close" id="closeModal">&times;</span>
         <table>
@@ -174,9 +71,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="script.js"></script>
+
     <script>
         // Password protection
-        var password = "dmg1129";
+        var password = "none1218";
         var enteredPassword = prompt("Please enter the password:");
         if (enteredPassword === password) {
             document.getElementById("content").classList.remove("hidden");
@@ -184,12 +82,13 @@
             document.body.innerHTML = "Invalid Password.";
         }
 
-        // Close modal function
+        // Close modal
         document.getElementById("closeModal").addEventListener("click", function () {
             document.getElementById("verticalView").style.display = "none";
             document.getElementById("modalOverlay").style.display = "none";
         });
     </script>
+
 </body>
 </html>
 
