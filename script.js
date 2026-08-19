@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             equipmentData = results.data;
             localStorage.setItem('equipmentData', JSON.stringify(equipmentData));
             displayResults(equipmentData);
-
-            // ⭐ Trigger pop-up alert after table loads
             runAlerts(equipmentData);
         },
         error: function(error) {
@@ -43,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cell = row.insertCell();
 
                 if (key === 'Coverage days left') {
-
                     let rawEnd = item['Contract/Warranty End'];
                     let endDate = cleanDate(rawEnd);
 
@@ -102,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const officeValue = document.getElementById('office').value.toLowerCase();
         const modalityValue = document.getElementById('modality').value.toLowerCase();
         const servicesupportValue = document.getElementById('servicesupport').value.toLowerCase();
+        const contractEndValue = document.getElementById('contractEnd').value.toLowerCase();
 
         const filteredData = equipmentData.filter(item => {
             return (
@@ -109,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 (item['Make'] || '').toLowerCase().includes(makeValue) &&
                 (item['Office'] || '').toLowerCase().includes(officeValue) &&
                 (item['Modality'] || '').toLowerCase().includes(modalityValue) &&
-                (item['Service Support'] || '').toLowerCase().includes(servicesupportValue)
+                (item['Service Support'] || '').toLowerCase().includes(servicesupportValue) &&
+                (item['Contract/Warranty End'] || '').toLowerCase().includes(contractEndValue)
             );
         });
 
@@ -154,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("modalOverlay").style.display = "none";
     });
 
-    // ⭐ POP-UP ALERT WINDOW (lists multiple systems downward)
     function runAlerts(data) {
         let alertItems = [];
 
@@ -193,16 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const popup = document.getElementById("alertPopup");
             const content = document.getElementById("alertContent");
 
-            // ⭐ RED HEADER
             content.innerHTML = `<h3 class="alert-header">⚠ Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
             popup.classList.remove("hidden");
         }
     }
 
-    // ⭐ Close pop-up
     document.getElementById("alertClose").addEventListener("click", function () {
         document.getElementById("alertPopup").classList.add("hidden");
     });
 
 });
-
