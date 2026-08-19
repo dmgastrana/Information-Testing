@@ -1,0 +1,151 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.search-container input {
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.result {
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.result table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.result th, .result td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result th {
+    background-color: #f2f2f2;
+}
+
+#resultTable {
+    width: 100%;
+}
+
+#resultTable th,
+#resultTable td {
+    white-space: nowrap;
+}
+
+#resultTable th:nth-child(8),
+#resultTable td:nth-child(8) {
+    min-width: 70px;
+    max-width: 150px;
+}
+
+#resultTable th:nth-child(9),
+#resultTable td:nth-child(9) {
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.vertical-view {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    z-index: 1000;
+    width: 80%;
+    max-height: 80%;
+    overflow: auto;
+}
+
+.vertical-view table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.vertical-view th, .vertical-view td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.vertical-view th {
+    background-color: #f2f2f2;
+}
+
+.vertical-view td {
+    padding-left: 8px; /* Reduce padding to bring columns closer together */
+}
+
+.vertical-view .close {
+    cursor: pointer;
+    color: red;
+    float: right;
+    font-size: 18px;
+    margin-top: -15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Style for "Office" row to be in blue text */
+.vertical-view .office-row td {
+    color: blue;
+}
+
+    
+
+
+
+
+
+
+
+    
+  
+   
+
+
+
+
+
+
+
+
+
