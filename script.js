@@ -193,7 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const popup = document.getElementById("alertPopup");
             const content = document.getElementById("alertContent");
 
-            content.innerHTML = `<h3>⚠ Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
+            // ⭐ RED HEADER
+            content.innerHTML = `<h3 class="alert-header">⚠ Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
             popup.classList.remove("hidden");
         }
     }
