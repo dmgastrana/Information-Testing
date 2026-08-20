@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const csv = require('csv-parser');
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const ALERT_SENDER = process.env.ALERT_SENDER;
@@ -8,6 +7,21 @@ const ALERT_RECIPIENT = process.env.ALERT_RECIPIENT;
 
 // Path to your CSV file
 const csvPath = path.join(process.cwd(), 'datatable.csv');
+
+// Parse CSV manually (no csv-parser needed)
+function parseCSV(content) {
+  const lines = content.trim().split('\n');
+  const headers = lines[0].split(',');
+
+  return lines.slice(1).map(line => {
+    const values = line.split(',');
+    const row = {};
+    headers.forEach((h, i) => {
+      row[h.trim()] = values[i]?.trim();
+    });
+    return row;
+  });
+}
 
 // Helper: check if a date is within 30 days
 function isExpiringSoon(dateStr) {
@@ -40,32 +54,28 @@ async function sendEmail(bodyText) {
 }
 
 async function run() {
-  const expiringItems = [];
+  const csvContent = fs.readFileSync(csvPath, 'utf8');
+  const rows = parseCSV(csvContent);
 
-  fs.createReadStream(csvPath)
-    .pipe(csv())
-    .on('data', (row) => {
-      if (row.expiration && isExpiringSoon(row.expiration)) {
-        expiringItems.push(row);
-      }
-    })
-    .on('end', async () => {
-      if (expiringItems.length === 0) {
-        console.log("No items expiring soon.");
-        return;
-      }
+  const expiringItems = rows.filter(row =>
+    row.expiration && isExpiringSoon(row.expiration)
+  );
 
-      const emailBody = expiringItems
-        .map(item => `• ${item.name} — expires on ${item.expiration}`)
-        .join('\n');
+  if (expiringItems.length === 0) {
+    console.log("No items expiring soon.");
+    return;
+  }
 
-      try {
-        await sendEmail(`The following items are expiring soon:\n\n${emailBody}`);
-        console.log("Email sent successfully.");
-      } catch (error) {
-        console.error("Error sending email:", error);
-      }
-    });
+  const emailBody = expiringItems
+    .map(item => `• ${item.name} — expires on ${item.expiration}`)
+    .join('\n');
+
+  try {
+    await sendEmail(`The following items are expiring soon:\n\n${emailBody}`);
+    console.log("Email sent successfully.");
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 }
 
 run();
