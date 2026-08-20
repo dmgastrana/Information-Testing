@@ -8,15 +8,15 @@
 
 <body>
 
-    <!-- ⭐ Pop-up alert window (NEW) -->
+    <!-- ⭐ Pop-up alert window -->
     <div id="alertPopup" class="alert-popup hidden">
         <span id="alertClose" class="alert-close">✖</span>
         <div id="alertContent"></div>
     </div>
-    <!-- ⭐ End pop-up -->
 
     <div id="content" class="hidden">
 
+        <!-- ⭐ Search Filters -->
         <div class="search-container">
             <input type="text" id="serialNumber" placeholder="Search by Serial Number">
             <input type="text" id="office" placeholder="Search by Office">
@@ -26,7 +26,7 @@
             <input type="text" id="contractEnd" placeholder="Search by Contract/Warranty End">
         </div>
 
-        <!-- ⭐ Export button placed directly above the table header row -->
+        <!-- ⭐ Export Button (correct placement) -->
         <div style="margin: 10px 0;">
             <button id="exportBtn" style="
                 padding:8px 14px;
@@ -41,6 +41,7 @@
             </button>
         </div>
 
+        <!-- ⭐ Main Table -->
         <table id="resultTable" class="result">
             <thead>
                 <tr>
@@ -78,6 +79,7 @@
         <div id="rowCount"></div>
     </div>
 
+    <!-- ⭐ Modal -->
     <div class="modal-overlay" id="modalOverlay"></div>
 
     <div class="vertical-view" id="verticalView">
@@ -87,14 +89,36 @@
         </table>
     </div>
 
+    <!-- ⭐ Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="script.js"></script>
 
+    <!-- ⭐ Password Unlock + Export Button Activation -->
     <script>
         var password = "dmg1129";
         var enteredPassword = prompt("Please enter the password:");
+
         if (enteredPassword === password) {
             document.getElementById("content").classList.remove("hidden");
+
+            // ⭐ FIX: Attach Export button click AFTER content becomes visible
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                fetch("https://raw.githubusercontent.com/dmgastrana/Information-testing/main/datatable.csv")
+                    .then(response => response.text())
+                    .then(csv => {
+                        const blob = new Blob([csv], { type: "text/csv" });
+                        const url = URL.createObjectURL(blob);
+
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = "datatable.csv";
+                        a.click();
+
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch(err => console.error("Error exporting CSV:", err));
+            });
+
         } else {
             document.body.innerHTML = "Invalid Password.";
         }
@@ -102,8 +126,6 @@
 
 </body>
 </html>
-
-
 
 
 
