@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { Resend } from 'resend';
-import csv from 'csv-parser';
+const fs = require('fs');
+const path = require('path');
+const { Resend } = require('resend');
+const csv = require('csv-parser');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -55,3 +55,4 @@ async function run() {
 }
 
 run();
+
