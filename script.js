@@ -191,8 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const popup = document.getElementById("alertPopup");
             const content = document.getElementById("alertContent");
 
-            content.innerHTML = `<h3 class="alert-header">⚠ Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
+            content.innerHTML = `<h3 class="alert-header">⚠ Contract/Warranty Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
             popup.classList.remove("hidden");
+      
         }
     }
 
