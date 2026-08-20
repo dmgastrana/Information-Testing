@@ -17,12 +17,10 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Run expiration script
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_SENDER: ${{ secrets.ALERT_SENDER }}
           ALERT_RECIPIENT: ${{ secrets.ALERT_RECIPIENT }}
         run: node send-alert.js
+
