@@ -1,6 +1,4 @@
-Information-Testing/
-datatable.csv
-send-alert.js
-.github/
-   workflows/
-      weekly-alert.yml
+import fs from 'fs';
+import path from 'path';
+import { Resend } from 'resend';
+import csv from 'csv-parser';
