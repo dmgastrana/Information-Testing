@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const { Resend } = require('resend');
 const csv = require('csv-parser');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const ALERT_SENDER = process.env.ALERT_SENDER;
+const ALERT_RECIPIENT = process.env.ALERT_RECIPIENT;
 
 // Path to your CSV file
 const csvPath = path.join(process.cwd(), 'datatable.csv');
@@ -17,6 +18,25 @@ function isExpiringSoon(dateStr) {
   const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
   return diffDays <= 30;
+}
+
+async function sendEmail(bodyText) {
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${RESEND_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: ALERT_SENDER,
+      to: ALERT_RECIPIENT,
+      subject: "Expiration Alert",
+      text: bodyText
+    })
+  });
+
+  const data = await response.json();
+  console.log("Resend response:", data);
 }
 
 async function run() {
@@ -40,13 +60,7 @@ async function run() {
         .join('\n');
 
       try {
-        await resend.emails.send({
-          from: process.env.ALERT_SENDER,
-          to: process.env.ALERT_RECIPIENT,
-          subject: "Expiration Alert",
-          text: `The following items are expiring soon:\n\n${emailBody}`
-        });
-
+        await sendEmail(`The following items are expiring soon:\n\n${emailBody}`);
         console.log("Email sent successfully.");
       } catch (error) {
         console.error("Error sending email:", error);
@@ -55,4 +69,3 @@ async function run() {
 }
 
 run();
-
