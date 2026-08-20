@@ -200,4 +200,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("alertPopup").classList.add("hidden");
     });
 
+    // ⭐ EXPORT TABLE FEATURE (NEW)
+    document.getElementById("exportBtn").addEventListener("click", () => {
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(csv => {
+                const blob = new Blob([csv], { type: "text/csv" });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "datatable.csv";
+                a.click();
+
+                URL.revokeObjectURL(url);
+            })
+            .catch(err => console.error("Error exporting CSV:", err));
+    });
+
 });
