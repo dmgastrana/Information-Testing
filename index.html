@@ -24,7 +24,21 @@
             <input type="text" id="make" placeholder="Search by Make">
             <input type="text" id="servicesupport" placeholder="Search by Service Support">
             <input type="text" id="contractEnd" placeholder="Search by Contract/Warranty End">
+        </div>
 
+        <!-- ⭐ Export button placed directly above the table header row -->
+        <div style="margin: 10px 0;">
+            <button id="exportBtn" style="
+                padding:8px 14px;
+                background:#0078ff;
+                color:white;
+                border:none;
+                border-radius:4px;
+                cursor:pointer;
+                font-size:14px;
+            ">
+                Export Table
+            </button>
         </div>
 
         <table id="resultTable" class="result">
@@ -77,7 +91,7 @@
     <script src="script.js"></script>
 
     <script>
-        var password = "dmg1129";
+        var password = "none1218";
         var enteredPassword = prompt("Please enter the password:");
         if (enteredPassword === password) {
             document.getElementById("content").classList.remove("hidden");
@@ -88,7 +102,6 @@
 
 </body>
 </html>
-
 
 
 
