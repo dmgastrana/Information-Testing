@@ -23,17 +23,6 @@ function parseCSV(content) {
   });
 }
 
-// Helper: check if a date is within 30 days
-function isExpiringSoon(dateStr) {
-  const today = new Date();
-  const expDate = new Date(dateStr);
-
-  const diffTime = expDate - today;
-  const diffDays = diffTime / (1000 * 60 * 60 * 24);
-
-  return diffDays <= 30;
-}
-
 async function sendEmail(bodyText) {
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -44,7 +33,7 @@ async function sendEmail(bodyText) {
     body: JSON.stringify({
       from: ALERT_SENDER,
       to: ALERT_RECIPIENT,
-      subject: "Expiration Alert",
+      subject: "Contract/Warranty Expiring Soon",
       text: bodyText
     })
   });
@@ -57,9 +46,11 @@ async function run() {
   const csvContent = fs.readFileSync(csvPath, 'utf8');
   const rows = parseCSV(csvContent);
 
-  const expiringItems = rows.filter(row =>
-    row.expiration && isExpiringSoon(row.expiration)
-  );
+  // Look for Coverage days left ≤ 60
+  const expiringItems = rows.filter(row => {
+    const daysLeft = parseInt(row["Coverage days left"], 10);
+    return !isNaN(daysLeft) && daysLeft <= 60;
+  });
 
   if (expiringItems.length === 0) {
     console.log("No items expiring soon.");
@@ -67,11 +58,11 @@ async function run() {
   }
 
   const emailBody = expiringItems
-    .map(item => `• ${item.name} — expires on ${item.expiration}`)
+    .map(item => `• ${item["Serial Number"]} — ${item["Coverage days left"]} days left`)
     .join('\n');
 
   try {
-    await sendEmail(`The following items are expiring soon:\n\n${emailBody}`);
+    await sendEmail(`The following items have ≤ 60 days of coverage left:\n\n${emailBody}`);
     console.log("Email sent successfully.");
   } catch (error) {
     console.error("Error sending email:", error);
