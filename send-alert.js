@@ -65,20 +65,36 @@ async function run() {
     return;
   }
 
+  // Build full detailed email body
   const emailBody = expiringItems
     .map(item => {
       const rawEnd = item["Contract/Warranty End"];
       const endDate = new Date(rawEnd.split(',')[0].trim());
       const diffDays = Math.ceil((endDate - new Date()) / 86400000);
 
-      return `• ${item["Serial Number"]} — ${diffDays} days left (Contract End: ${rawEnd})`;
+      return `
+Contract/Warranty Expiring Soon (≤ 60 days)
+
+Serial Number: ${item["Serial Number"]}
+Make: ${item["Make"]}
+Office: ${item["Office"]}
+Modality: ${item["Modality"]}
+Room: ${item["Room"]}
+Equipment: ${item["Equipment"]}
+Contract Begin: ${item["Contract/Warranty Begin"]}
+Contract End: ${item["Contract/Warranty End"]}
+Coverage days left: ${diffDays}
+Service Support: ${item["Service Support"]}
+Support Phone#: ${item["Support Phone#"]}
+Support Email: ${item["Support Email"]}
+
+---------------------------------------------
+`;
     })
-    .join('\n');
+    .join("\n");
 
   try {
-    await sendEmail(
-      `The following items have ≤ 60 days of coverage left:\n\n${emailBody}`
-    );
+    await sendEmail(emailBody);
     console.log("Email sent successfully.");
   } catch (error) {
     console.error("Error sending email:", error);
