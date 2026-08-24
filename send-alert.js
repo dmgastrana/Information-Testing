@@ -8,7 +8,7 @@ const ALERT_RECIPIENT = process.env.ALERT_RECIPIENT;
 // Path to your CSV file
 const csvPath = path.join(process.cwd(), 'datatable.csv');
 
-// Parse CSV manually (no csv-parser needed)
+// Parse CSV manually
 function parseCSV(content) {
   const lines = content.trim().split('\n');
   const headers = lines[0].split(',');
@@ -46,10 +46,18 @@ async function run() {
   const csvContent = fs.readFileSync(csvPath, 'utf8');
   const rows = parseCSV(csvContent);
 
-  // Look for Coverage days left ≤ 60
+  // Match website logic: compute days left from Contract/Warranty End
   const expiringItems = rows.filter(row => {
-    const daysLeft = parseInt(row["Coverage days left"], 10);
-    return !isNaN(daysLeft) && daysLeft <= 60;
+    const rawEnd = row["Contract/Warranty End"];
+    if (!rawEnd) return false;
+
+    const endDate = new Date(rawEnd.split(',')[0].trim());
+    if (isNaN(endDate)) return false;
+
+    const today = new Date();
+    const diffDays = Math.ceil((endDate - today) / 86400000);
+
+    return diffDays <= 60 && diffDays > 0;
   });
 
   if (expiringItems.length === 0) {
@@ -58,11 +66,19 @@ async function run() {
   }
 
   const emailBody = expiringItems
-    .map(item => `• ${item["Serial Number"]} — ${item["Coverage days left"]} days left`)
+    .map(item => {
+      const rawEnd = item["Contract/Warranty End"];
+      const endDate = new Date(rawEnd.split(',')[0].trim());
+      const diffDays = Math.ceil((endDate - new Date()) / 86400000);
+
+      return `• ${item["Serial Number"]} — ${diffDays} days left (Contract End: ${rawEnd})`;
+    })
     .join('\n');
 
   try {
-    await sendEmail(`The following items have ≤ 60 days of coverage left:\n\n${emailBody}`);
+    await sendEmail(
+      `The following items have ≤ 60 days of coverage left:\n\n${emailBody}`
+    );
     console.log("Email sent successfully.");
   } catch (error) {
     console.error("Error sending email:", error);
