@@ -190,6 +190,10 @@ body {
 .alert-header {
     color: red !important;
 }
+.blue-label {
+    color: #0078ff;
+    font-weight: 600;
+}
 
     
   
