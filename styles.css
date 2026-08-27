@@ -151,7 +151,7 @@ body {
     color: blue;
 }
 
-/* ⭐ NEW: Pop-up alert window */
+/* ⭐ Pop-up alert window */
 .alert-popup {
     position: fixed;
     top: 20px;
@@ -186,18 +186,22 @@ body {
     font-weight: bold;
 }
 
-
+/* Red header */
 .alert-header {
     color: red !important;
 }
+
+/* ⭐ FIX: Ensure popup text defaults to black */
+.alert-entry {
+    color: black;
+}
+
+/* ⭐ FIX: Make ONLY the labels blue */
 .blue-label {
-    color: #0078ff;
+    color: #0078ff !important;
     font-weight: 600;
 }
 
-    
-  
-   
 
 
 
