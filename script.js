@@ -168,21 +168,45 @@ document.addEventListener('DOMContentLoaded', () => {
             if (diffDays <= 60 && diffDays > 0) {
 
                 alertItems.push(`
+                
+
+
 <div class="alert-entry">
 <b>Serial Number:</b> ${item['Serial Number']}<br>
+
 <span class="blue-label">Make:</span> ${item['Make']}<br>
 <span class="blue-label">Office:</span> ${item['Office']}<br>
 <span class="blue-label">Modality:</span> ${item['Modality']}<br>
+
 <b>Room:</b> ${item['Room']}<br>
-<b>Equipment:</b> ${item['Equipment']}<br>
+
+<span class="blue-label">Equipment:</span> ${item['Equipment']}<br>
+
 <b>Contract Begin:</b> ${item['Contract/Warranty Begin']}<br>
-<b>Contract End:</b> ${item['Contract/Warranty End']}<br>
+
+<span class="blue-label">Contract End:</span> ${item['Contract/Warranty End']}<br>
+
 <b>Coverage days left:</b> ${diffDays}<br>
 <b>Service Support:</b> ${item['Service Support']}<br>
 <b>Support Phone#:</b> ${item['Support Phone#']}<br>
 <b>Support Email:</b> ${item['Support Email']}<br>
 </div>
 <hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 `);
             }
         });
