@@ -1,4 +1,4 @@
-Serial Number,UP#,Make,Office,Modality,Status,Room,Tech,Equipment,Contract/Warranty Begin,Contract/Warranty End,Service Contract,Coverage days left,PM Completed,Service Support,Support Phone#,Support Email,Service Annual Fee,Note,Purchase From,Purchase Date,Delivery Date,Install Date,Remove By,Remove Date,Remove Description
+Serial Number,UP#/System ID,Make,Office,Modality,Status,Room,Tech,Equipment,Contract/Warranty Begin,Contract/Warranty End,Service Contract,Coverage days left,PM Completed,Service Support,Support Phone#,Support Email,Service Annual Fee,Note,Purchase From,Purchase Date,Delivery Date,Install Date,Remove By,Remove Date,Remove Description
 BVA00145 ,,Brevera,ABC,Mammo Biopsy  Brevera,In Use,Mammo,,Mammo breast Brevera biopsy system                                                                              ,1/20/2025,6/30/2026,,,,Hologic,877-371-4372,ServiceOperations@hologic.com,"$14,700.00 ",1 pm/yr,,,,,,,
 82008172178,,Hologic,ABC,Mammo Biopsy Affirm,In Use,Mammo,,Mammo breast affirm biopsy system,1/20/2025,6/30/2026,,,,Hologic,877-371-4372,ServiceOperations@hologic.com,"$4,263.00 ",2 pm/yr,,,,,,,
 101488,,Hologic,ABC,Mammo Biopsy Chair,In Use,Mammo,,Mammo breast biopsy Akrus chair,9/1/2021,6/30/2026,,,,Hologic,877-371-4372,ServiceOperations@hologic.com,"$1,470.00 ",,,,,,,,
@@ -48,3 +48,14 @@ pp42114,,Sedecal,SG,X-Ray,In Use,X-Ray,David V/Rahel,X-Ray  Radiographic system 
 400-655097,,Siemens ,Synergy,MRI Chiller,In Use,MRI,,Chiller KKT/cBoxX Only,9/19/2022,12/31/2030,,,,Siemens ,1-888-826-9702,siemensservice@healthcare.siemens.com,"$8,840 ",pm (per manufacturer's recommendations),,2018,,,,,
 USD20F1268,,Philips,Synergy,Ultrasound,In Use,Room 1,Maribel,101930 Affiniti 70 Ultrasound System,1/12/2022,1/11/2027,,,6/26/2026,Phillips,,,,1 pm/yr,,2021,,,,,
 SU31604023,,SYFM,Synergy,X-Ray,In Use,X-Ray,Jacqueline,SU-300X / PFD U-Arm,n/a,n/a,,,,,,,,,,2020,,,,,
+R4339 ,626281HDMR,GE ,PMIOC ALH,MRI,In Use,MR,Ricardo Rodriguez ,1.5 Tesla/12HD,10/1/2005,12/1/2028,,,,GE,Manny-916-206-3917,,"$70,574.40 ",,GE,      Sept 2005,,,,,
+20036,7000803,UMI ,PMIOC ALH,CT/PET,In Use,CT/PET ,"Angie-CT,Ivan-PET ",UMI 550,1/1/2024,12/31/2028,,,,UMI ,Luis-714-561-0739,,"$110,000.00",,UMI ,6/1/20,,,,,
+201266,,Siemens ,PMIOC ALH,US,In Use,US ,Laura/ Johanna,Accuson S2000,n/a,n/a,,,,MXR Imaging,866-900-9404,,,"1 pm/yr, service for time and materials ",MXR Imaging ,4/1/25,,,,,
+6167,S1601003,Swissray ,PMIOC ALH,Xray ,In Use,Xray ,Michael/Josh ,DDR Element ,n/a,n/a,,,,Swiss Ray,Rex-732-325-4745,,,"1 pm/yr, service for time and materials ",Swissray ,10/1/16,,,,,
+,,Hologic ,PMIOC ALH,Dexa ,In Use,Xray ,Michael/Josh ,Horizon,n/a,n/a,,,,ARRAD ,949-466-0625,,,Service for time and materials,GE,1/1/15,,,,,
+AKS 0109012,,Philipps ,PMIOC ALH,Nuc Med,Not Use,Nuc Med ,Ivan ,Addac Forte ,n/a,n/a,,,,,Ted 909-680-9508,,,Service for time and materials,,,,,,,
+454597CN,,GE ,PMIOC CI,CT,In Use,CT ,Michael/ Krtisy ,VCT 64,n/a,n/a,,,,GE,Danny- 562-477-3522,,"$61,386",,,,,,,,
+EWS151902345,,Siemens ,PMIOC CI,US ,In Use,US ,Stella (Dong Fong) ,Accuson 2000 ,5/1/2026,11/30/2026,,,,Avante Health Solutions ,866-282-6834,,,"1 pm/yr, service for time and materials ",Avante Health ,05/25/26,,,,,
+51601004,,Swissray ,PMIOC CI,Xray ,In Use,Xray ,Michael/ Krtisy ,DDR Element ,n/a,n/a,,,,Swiss Ray,Rex-732-325-4745,,,Service for time and materials ,,,,,,,
+64679,,GE ,PMIOC CI,Dexa,In Use,Dexa,Michael/ Krtisy ,Prodigy ,n/a,n/a,,,,NONE ,,,,,,,,,,,
+211249,,Hologic ,PMIOC CI,Mammo ,In Use,Mammo ,Mindy ,Dimensions 3D,n/a,n/a,,,,ARRAD,949-466-0625,,,Service for time and Materials,Hologic ,Jun-23,,,,,
