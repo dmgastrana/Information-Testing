@@ -170,9 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertItems.push(`
 <div class="alert-entry">
 <b>Serial Number:</b> ${item['Serial Number']}<br>
-<b>Make:</b> ${item['Make']}<br>
-<b>Office:</b> ${item['Office']}<br>
-<b>Modality:</b> ${item['Modality']}<br>
+<span class="blue-label">Make:</span> ${item['Make']}<br>
+<span class="blue-label">Office:</span> ${item['Office']}<br>
+<span class="blue-label">Modality:</span> ${item['Modality']}<br>
 <b>Room:</b> ${item['Room']}<br>
 <b>Equipment:</b> ${item['Equipment']}<br>
 <b>Contract Begin:</b> ${item['Contract/Warranty Begin']}<br>
@@ -193,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             content.innerHTML = `<h3 class="alert-header">⚠ Contract/Warranty Expiring Soon (≤ 60 days)</h3>` + alertItems.join("");
             popup.classList.remove("hidden");
-      
         }
     }
 
@@ -201,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("alertPopup").classList.add("hidden");
     });
 
-    // ⭐ EXPORT TABLE FEATURE (NEW)
     document.getElementById("exportBtn").addEventListener("click", () => {
         fetch(csvUrl)
             .then(response => response.text())
@@ -220,6 +218,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-
-
 
