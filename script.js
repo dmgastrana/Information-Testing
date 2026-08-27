@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <span class="blue-label">Make:</span> ${item['Make']}<br>
 <span class="blue-label">Office:</span> ${item['Office']}<br>
-<span class="blue-label">Modality:</span> ${item['Modality']}<br>
+<b>Modality:</b> ${item['Modality']}<br>
 
 <b>Room:</b> ${item['Room']}<br>
 
