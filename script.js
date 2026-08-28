@@ -168,45 +168,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (diffDays <= 60 && diffDays > 0) {
 
                 alertItems.push(`
-                
-
-
 <div class="alert-entry">
 <b>Serial Number:</b> ${item['Serial Number']}<br>
-
 <span class="blue-label">Make:</span> ${item['Make']}<br>
 <span class="blue-label">Office:</span> ${item['Office']}<br>
 <b>Modality:</b> ${item['Modality']}<br>
-
 <b>Room:</b> ${item['Room']}<br>
-
 <span class="blue-label">Equipment:</span> ${item['Equipment']}<br>
-
 <b>Contract Begin:</b> ${item['Contract/Warranty Begin']}<br>
-
 <span class="blue-label">Contract End:</span> ${item['Contract/Warranty End']}<br>
-
 <b>Coverage days left:</b> ${diffDays}<br>
 <b>Service Support:</b> ${item['Service Support']}<br>
 <b>Support Phone#:</b> ${item['Support Phone#']}<br>
 <b>Support Email:</b> ${item['Support Email']}<br>
 </div>
 <hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 `);
             }
         });
@@ -224,21 +200,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("alertPopup").classList.add("hidden");
     });
 
+    // ⭐ UPDATED EXPORT — exports the visible HTML table
     document.getElementById("exportBtn").addEventListener("click", () => {
-        fetch(csvUrl)
-            .then(response => response.text())
-            .then(csv => {
-                const blob = new Blob([csv], { type: "text/csv" });
-                const url = URL.createObjectURL(blob);
+        const table = document.getElementById("resultTable");
+        let csv = [];
 
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "datatable.csv";
-                a.click();
+        const rows = table.querySelectorAll("tr");
+        rows.forEach(row => {
+            const cols = row.querySelectorAll("th, td");
+            const rowData = [];
 
-                URL.revokeObjectURL(url);
-            })
-            .catch(err => console.error("Error exporting CSV:", err));
+            cols.forEach(col => {
+                const link = col.querySelector("a");
+                if (link) {
+                    rowData.push("View PDF");
+                } else {
+                    rowData.push(col.innerText);
+                }
+            });
+
+            csv.push(rowData.join(","));
+        });
+
+        const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "datatable.csv";
+        a.click();
+
+        URL.revokeObjectURL(url);
     });
 
 });
