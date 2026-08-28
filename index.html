@@ -93,47 +93,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="script.js"></script>
 
-    <!-- ⭐ Password Unlock + Export Button Activation -->
+    <!-- ⭐ Password Unlock -->
     <script>
-        var password = "dmg1129";
+        var password = "none1212";
         var enteredPassword = prompt("Please enter the password:");
 
         if (enteredPassword === password) {
             document.getElementById("content").classList.remove("hidden");
-
-            // ⭐ NEW EXPORT: Export the visible HTML table (includes Coverage Days + View PDF)
-            document.getElementById("exportBtn").addEventListener("click", () => {
-                const table = document.getElementById("resultTable");
-                let csv = [];
-
-                const rows = table.querySelectorAll("tr");
-                rows.forEach(row => {
-                    const cols = row.querySelectorAll("th, td");
-                    const rowData = [];
-
-                    cols.forEach(col => {
-                        const link = col.querySelector("a");
-                        if (link) {
-                            rowData.push("View PDF");
-                        } else {
-                            rowData.push(col.innerText);
-                        }
-                    });
-
-                    csv.push(rowData.join(","));
-                });
-
-                const blob = new Blob([csv.join("\n")], { type: "text/csv" });
-                const url = URL.createObjectURL(blob);
-
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "datatable.csv";
-                a.click();
-
-                URL.revokeObjectURL(url);
-            });
-
         } else {
             document.body.innerHTML = "Invalid Password.";
         }
@@ -141,9 +107,4 @@
 
 </body>
 </html>
-
-
-
-
-
 
