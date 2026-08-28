@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-testing/main/datatable.csv';
@@ -234,5 +235,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-
-
