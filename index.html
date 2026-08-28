@@ -26,7 +26,7 @@
             <input type="text" id="contractEnd" placeholder="Search by Contract/Warranty End">
         </div>
 
-        <!-- ⭐ Export Button (correct placement) -->
+        <!-- ⭐ Export Button -->
         <div style="margin: 10px 0;">
             <button id="exportBtn" style="
                 padding:8px 14px;
@@ -95,28 +95,43 @@
 
     <!-- ⭐ Password Unlock + Export Button Activation -->
     <script>
-        var password = "dmg1129";
+        var password = "none1212";
         var enteredPassword = prompt("Please enter the password:");
 
         if (enteredPassword === password) {
             document.getElementById("content").classList.remove("hidden");
 
-            // ⭐ FIX: Attach Export button click AFTER content becomes visible
+            // ⭐ NEW EXPORT: Export the visible HTML table (includes Coverage Days + View PDF)
             document.getElementById("exportBtn").addEventListener("click", () => {
-                fetch("https://raw.githubusercontent.com/dmgastrana/Information-testing/main/datatable.csv")
-                    .then(response => response.text())
-                    .then(csv => {
-                        const blob = new Blob([csv], { type: "text/csv" });
-                        const url = URL.createObjectURL(blob);
+                const table = document.getElementById("resultTable");
+                let csv = [];
 
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = "datatable.csv";
-                        a.click();
+                const rows = table.querySelectorAll("tr");
+                rows.forEach(row => {
+                    const cols = row.querySelectorAll("th, td");
+                    const rowData = [];
 
-                        URL.revokeObjectURL(url);
-                    })
-                    .catch(err => console.error("Error exporting CSV:", err));
+                    cols.forEach(col => {
+                        const link = col.querySelector("a");
+                        if (link) {
+                            rowData.push("View PDF");
+                        } else {
+                            rowData.push(col.innerText);
+                        }
+                    });
+
+                    csv.push(rowData.join(","));
+                });
+
+                const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "datatable.csv";
+                a.click();
+
+                URL.revokeObjectURL(url);
             });
 
         } else {
@@ -126,7 +141,6 @@
 
 </body>
 </html>
-
 
 
 
