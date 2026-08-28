@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const csvUrl = 'https://raw.githubusercontent.com/dmgastrana/Information-testing/main/datatable.csv';
@@ -201,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("alertPopup").classList.add("hidden");
     });
 
-    // ⭐ UPDATED EXPORT — exports the visible HTML table
+    // ⭐ UPDATED EXPORT — FIXED: serial numbers with commas stay in ONE column
     document.getElementById("exportBtn").addEventListener("click", () => {
         const table = document.getElementById("resultTable");
         let csv = [];
@@ -213,11 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cols.forEach(col => {
                 const link = col.querySelector("a");
-                if (link) {
-                    rowData.push("View PDF");
-                } else {
-                    rowData.push(col.innerText);
-                }
+
+                let text = link ? "View PDF" : col.innerText;
+
+                // ⭐ FIX: wrap text in quotes to prevent CSV splitting
+                text = `"${text.replace(/"/g, '""')}"`;
+
+                rowData.push(text);
             });
 
             csv.push(rowData.join(","));
